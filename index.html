@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const video = document.getElementById('video');
+        const captureButton = document.getElementById('capture');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+      
+        // 啟動相機
+        navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
+          .then((stream) => {
+            video.srcObject = stream;
+          });
+      
+        // 捕獲影像
+        captureButton.addEventListener('click', () => {
+          context.drawImage(video, 0, 0, canvas.width, canvas.height);
+          // 儲存影像
+          const imgData = canvas.toDataURL("image/png");
+          localStorage.setItem('capturedImage', imgData);
+        });
+      </script>
+
+<video id="video" autoplay></video>
+<button id="capture">Capture</button>
+<canvas id="canvas" width="480" height="320"></canvas>
+    
+</body>
+</html>
+
