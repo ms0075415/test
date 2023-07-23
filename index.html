@@ -20,7 +20,10 @@
         const context = canvas.getContext('2d');
       
         // 啟動相機
-        navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
+        navigator.mediaDevices.getUserMedia({video: {
+            facingMode: {
+            exact: 'environment'
+        }}})
           .then((stream) => {
             video.srcObject = stream;
           });
